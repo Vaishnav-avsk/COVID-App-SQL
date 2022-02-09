@@ -1,0 +1,795 @@
+USED ORACLE LIVE SQL: https://livesql.oracle.com/
+
+CREATE TABLE Employee (EMP_ID INTEGER NOT NULL, EMP_NAME VARCHAR2(30) NOT NULL, OFFICE_NUMB VARCHAR2(15) NOT NULL, FLOOR_NUMB INTEGER NOT NULL, PHONE_NUMB VARCHAR2(15) NOT NULL, EMAIL VARCHAR2(30) NOT NULL, PRIMARY KEY (EMP_ID));
+
+CREATE TABLE MeetingDetails (M_ID INTEGER NOT NULL, ROOM_NUMB INTEGER NOT NULL, START_TIME VARCHAR2(10) NOT NULL, PRIMARY KEY (M_ID));
+
+CREATE TABLE Rooms (ROOM_NUMB INTEGER NOT NULL, FLOOR_NUMB INTEGER NOT NULL, PRIMARY KEY (ROOM_NUMB));
+
+ALTER TABLE MeetingDetails ADD FOREIGN KEY (ROOM_NUMB) REFERENCES Rooms (ROOM_NUMB);
+
+CREATE TABLE Meeting (M_ID_EMP_ID INTEGER NOT NULL, TIME_SPENT_IN_HRS NUMBER(4,2) NOT NULL, PRIMARY KEY (M_ID_EMP_ID));
+
+CREATE TABLE Notification (NOTF_ID INTEGER NOT NULL, EMP_ID INTEGER NOT NULL, NOTF_DATE DATE NOT NULL, NOTF_TYPE VARCHAR2(20) NOT NULL, PRIMARY KEY (NOTF_ID));
+
+ALTER TABLE Notification ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+CREATE TABLE Symptom (ROW_ID INTEGER NOT NULL, EMP_ID INTEGER NOT NULL, DATE_REPORTED DATE NOT NULL, SYMPTOM_ID INTEGER NOT NULL, PRIMARY KEY (ROW_ID));
+
+ALTER TABLE Symptom ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+CREATE TABLE SymptomType (SYMPTOM_ID INTEGER NOT NULL, SYMPTOM_NAME VARCHAR2(30) NOT NULL, PRIMARY KEY (SYMPTOM_ID));
+
+ALTER TABLE Symptom ADD FOREIGN KEY (SYMPTOM_ID) REFERENCES SymptomType (SYMPTOM_ID);
+
+CREATE TABLE Scans (SCAN_ID INTEGER NOT NULL, SCAN_DATE DATE NOT NULL, SCAN_TIME VARCHAR2(10) NOT NULL, EMP_ID INTEGER NOT NULL, TEMPERATURE_IN_F INTEGER NOT NULL, PRIMARY KEY (SCAN_ID));
+
+ALTER TABLE Scans ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+CREATE TABLE Tests (TEST_ID INTEGER NOT NULL, LOCATION VARCHAR2(20) NOT NULL, TEST_DATE DATE NOT NULL, TEST_TIME VARCHAR2(10) NOT NULL, EMP_ID INTEGER NOT NULL, TEST_RESULT VARCHAR2(15) NOT NULL, PRIMARY KEY (TEST_ID));
+
+ALTER TABLE Tests ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+CREATE TABLE Cases (CASE_ID INTEGER NOT NULL, EMP_ID INTEGER NOT NULL, CASE_DATE DATE NOT NULL, RESOLUTION VARCHAR2(20) NOT NULL, PRIMARY KEY (CASE_ID));
+
+ALTER TABLE Cases ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+CREATE TABLE HealthStatus (ROW_IDTN INTEGER NOT NULL, EMP_ID INTEGER NOT NULL, ON_DATE DATE NOT NULL, CUR_STATUS VARCHAR2(20) NOT NULL, PRIMARY KEY (ROW_IDTN));
+
+ALTER TABLE HealthStatus ADD FOREIGN KEY (EMP_ID) REFERENCES Employee (EMP_ID);
+
+INSERT INTO Employee VALUES (6007, 'Ryan Shaw', '213-285-7001', 2, '213-551-2856', 'rshaw@gmail.com');
+
+INSERT INTO Employee VALUES (6003, 'Jose Marshal', '213-285-7002', 3, '213-551-5426', 'jmarshal@gmail.com');
+
+INSERT INTO Employee VALUES (6008, 'Rick Shaw', '213-285-7005', 1, '213-551-4674', 'srick@gmail.com');
+
+INSERT INTO Employee VALUES (6001, 'Peter Parker', '213-285-7004', 6, '213-551-8678', 'pparker@gmail.com');
+
+INSERT INTO Employee VALUES (6002, 'Tony Stark', '213-285-7006', 3, '213-551-1464', 'tstark@gmail.com');
+
+INSERT INTO Employee VALUES (6005, 'Chris Hemsworth', '213-285-7003', 4, '213-551-9786', 'chems@gmail.com');
+
+INSERT INTO Employee VALUES (6009, 'Charles Dube', '213-285-7009', 2, '213-551-9433', 'cdube@gmail.com');
+
+INSERT INTO Employee VALUES (6006, 'Mary Stone', '213-285-7007', 6, '213-551-4217', 'mstone@gmail.com');
+
+INSERT INTO Employee VALUES (6012, 'Emma Holmes', '213-285-7008', 2, '213-551-1717', 'eholmes@gmail.com');
+
+INSERT INTO Employee VALUES (6015, 'Enola Watson', '213-285-7010', 4, '213-551-2433', 'ewatson@gmail.com');
+
+INSERT INTO Employee VALUES (6011, 'Arnold Watson', '213-285-7014', 3, '213-551-4571', 'awatson@gmail.com');
+
+INSERT INTO Employee VALUES (6010, 'Zoe Greg', '213-285-7013', 5, '213-551-2226', 'zgreg@gmail.com');
+
+INSERT INTO Employee VALUES (6017, 'Prayg Singh', '213-285-7015', 5, '213-551-4544', 'psingh@gmail.com');
+
+INSERT INTO Employee VALUES (6022, 'Shahruk Khan', '213-285-7012', 5, '213-551-2614', 'skhan@gmail.com');
+
+INSERT INTO Employee VALUES (6024, 'Mahesh Babu', '213-285-7011', 5, '213-551-9822', 'mbabu@gmail.com');
+
+INSERT INTO Employee VALUES (6027, 'Surya Rathod', '213-285-7017', 2, '213-551-8750', 'srathod@gmail.com');
+
+INSERT INTO Employee VALUES (6029, 'Jhon Raes', '213-285-7016', 2, '213-551-0533', 'jraes@gmail.com');
+
+INSERT INTO Employee VALUES (6032, 'Emma Stone', '213-285-7019', 3, '213-551-0020', 'emmas@gmail.com');
+
+INSERT INTO Employee VALUES (6036, 'Priyanka Chopra', '213-285-7018', 6, '213-551-1744', 'pchopra@gmail.com');
+
+INSERT INTO Employee VALUES (6034, 'Arnold Somerfield', '213-285-7020', 4, '213-551-7777', 'asomerfield@gmail.com');
+
+INSERT INTO Employee VALUES (6043, 'Greg Stew', '213-285-7026', 3, '213-551-3366', 'gstew2@gmail.com');
+
+INSERT INTO Employee VALUES (6047, 'Holand Tinker', '213-285-7029', 1, '213-551-8055', 'htinker@gmail.com');
+
+INSERT INTO Employee VALUES (6051, 'Tony Jr', '213-285-7025', 1, '213-551-7007', 'tjr@gmail.com');
+
+INSERT INTO Employee VALUES (6055, 'William Tardos', '213-285-7022', 4, '213-551-4560', 'wtardos@gmail.com');
+
+INSERT INTO Employee VALUES (6058, 'Carlos Mate', '213-285-7030', 3, '213-551-7800', 'cmate@gmail.com');
+
+SELECT * FROM Employee;
+
+SELECT * FROM Employee;
+
+INSERT INTO Rooms VALUES (101, 1);
+
+INSERT INTO Rooms VALUES (102, 1);
+
+INSERT INTO Rooms VALUES (103, 1);
+
+INSERT INTO Rooms VALUES (104, 1);
+
+INSERT INTO Rooms VALUES (105, 1);
+
+INSERT INTO Rooms VALUES (106, 1);
+
+INSERT INTO Rooms VALUES (107, 1);
+
+INSERT INTO Rooms VALUES (108, 1);
+
+INSERT INTO Rooms VALUES (109, 1);
+
+INSERT INTO Rooms VALUES (110, 1);
+
+INSERT INTO Rooms VALUES (201, 1);
+
+INSERT INTO Rooms VALUES (202, 1);
+
+SELECT * FROM Rooms;
+
+UPDATE Rooms SET FLOOR_NUMB = 2 WHERE ROOM_NUMB = 201;
+
+UPDATE Rooms SET FLOOR_NUMB = 2 WHERE ROOM_NUMB = 202;
+
+SELECT * FROM Rooms;
+
+INSERT INTO Rooms VALUES (203, 2);
+
+INSERT INTO Rooms VALUES (204, 2);
+
+INSERT INTO Rooms VALUES (205, 2);
+
+INSERT INTO Rooms VALUES (206, 2);
+
+INSERT INTO Rooms VALUES (207, 2);
+
+INSERT INTO Rooms VALUES (208, 2);
+
+INSERT INTO Rooms VALUES (209, 2);
+
+INSERT INTO Rooms VALUES (210, 2);
+
+INSERT INTO Rooms VALUES (301, 3);
+
+INSERT INTO Rooms VALUES (302, 3);
+
+INSERT INTO Rooms VALUES (303, 3);
+
+INSERT INTO Rooms VALUES (304, 3);
+
+INSERT INTO Rooms VALUES (305, 3);
+
+INSERT INTO Rooms VALUES (306, 3);
+
+INSERT INTO Rooms VALUES (307, 3);
+
+INSERT INTO Rooms VALUES (308, 3);
+
+INSERT INTO Rooms VALUES (309, 3);
+
+INSERT INTO Rooms VALUES (310, 3);
+
+INSERT INTO Rooms VALUES (401, 4);
+
+INSERT INTO Rooms VALUES (402, 4);
+
+INSERT INTO Rooms VALUES (403, 4);
+
+INSERT INTO Rooms VALUES (404, 4);
+
+INSERT INTO Rooms VALUES (405, 4);
+
+INSERT INTO Rooms VALUES (406, 4);
+
+INSERT INTO Rooms VALUES (407, 4);
+
+INSERT INTO Rooms VALUES (408, 4);
+
+INSERT INTO Rooms VALUES (409, 4);
+
+INSERT INTO Rooms VALUES (410, 4);
+
+INSERT INTO Rooms VALUES (501, 5);
+
+INSERT INTO Rooms VALUES (502, 5);
+
+INSERT INTO Rooms VALUES (503, 5);
+
+INSERT INTO Rooms VALUES (504, 5);
+
+INSERT INTO Rooms VALUES (505, 5);
+
+INSERT INTO Rooms VALUES (506, 5);
+
+INSERT INTO Rooms VALUES (507, 5);
+
+INSERT INTO Rooms VALUES (508, 5);
+
+INSERT INTO Rooms VALUES (509, 5);
+
+INSERT INTO Rooms VALUES (510, 5);
+
+INSERT INTO Rooms VALUES (601, 6);
+
+INSERT INTO Rooms VALUES (602, 6);
+
+INSERT INTO Rooms VALUES (603, 6);
+
+INSERT INTO Rooms VALUES (604, 6);
+
+INSERT INTO Rooms VALUES (605, 6);
+
+INSERT INTO Rooms VALUES (606, 6);
+
+INSERT INTO Rooms VALUES (607, 6);
+
+INSERT INTO Rooms VALUES (608, 6);
+
+INSERT INTO Rooms VALUES (609, 6);
+
+INSERT INTO Rooms VALUES (610, 6);
+
+SELECT * FROM Rooms;
+
+INSERT INTO MeetingDetails VALUES (1011, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1012, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1013, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1014, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1015, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1016, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1017, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1018, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1019, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1020, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1021, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1022, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1023, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1024, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1025, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1026, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1027, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1028, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1029, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1030, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1031, 302, '3:15pm');
+
+SELECT * FROM MeetingDetails;
+
+DROP TABLE MeetingDetails
+
+
+SELECT * FROM MeetingDetails;
+
+CREATE TABLE MeetingDetails (M_ID INTEGER NOT NULL, ROOM_NUMB INTEGER NOT NULL, START_TIME VARCHAR2(10) NOT NULL, PRIMARY KEY (M_ID));
+
+ALTER TABLE MeetingDetails ADD FOREIGN KEY (ROOM_NUMB) REFERENCES Rooms (ROOM_NUMB);
+
+INSERT INTO MeetingDetails VALUES (1011, 302, '3:15pm');
+
+INSERT INTO MeetingDetails VALUES (1012, 305, '4:00pm');
+
+INSERT INTO MeetingDetails VALUES (1013, 110, '1:10pm');
+
+INSERT INTO MeetingDetails VALUES (1014, 406, '12:30pm');
+
+INSERT INTO MeetingDetails VALUES (1015, 503, '9:00am');
+
+INSERT INTO MeetingDetails VALUES (1016, 210, '9:45am');
+
+INSERT INTO MeetingDetails VALUES (1017, 205, '10:10am');
+
+INSERT INTO MeetingDetails VALUES (1018, 603, '11:40am');
+
+INSERT INTO MeetingDetails VALUES (1019, 508, '4:30pm');
+
+INSERT INTO MeetingDetails VALUES (1020, 607, '12:15pm');
+
+INSERT INTO MeetingDetails VALUES (1021, 204, '1:00pm');
+
+INSERT INTO MeetingDetails VALUES (1022, 102, '1:40pm');
+
+INSERT INTO MeetingDetails VALUES (1023, 404, '2:10pm');
+
+INSERT INTO MeetingDetails VALUES (1024, 309, '2:40pm');
+
+INSERT INTO MeetingDetails VALUES (1025, 509, '3:30pm');
+
+INSERT INTO MeetingDetails VALUES (1026, 109, '11:10am');
+
+INSERT INTO MeetingDetails VALUES (1027, 209, '9:25am');
+
+INSERT INTO MeetingDetails VALUES (1028, 409, '10:30am');
+
+INSERT INTO MeetingDetails VALUES (1029, 609, '11:05am');
+
+INSERT INTO MeetingDetails VALUES (1030, 606, '12:45pm');
+
+INSERT INTO MeetingDetails VALUES (1031, 206, '2:00pm');
+
+SELECT * FROM MeetingDetails;
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10116007, 1.2);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10116009, 1.2);
+
+INSERT INTO Meeting VALUES (10116015, 1.2);
+
+INSERT INTO Meeting VALUES (10116032, 1.2);
+
+INSERT INTO Meeting VALUES (10116036, 0.8);
+
+INSERT INTO Meeting VALUES (10116051, 1.0);
+
+INSERT INTO Meeting VALUES (10116058, 1.0);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10126008, 2.5);
+
+INSERT INTO Meeting VALUES (10126001, 2.5);
+
+INSERT INTO Meeting VALUES (10126012, 2.0);
+
+INSERT INTO Meeting VALUES (10126024, 1.5);
+
+INSERT INTO Meeting VALUES (10126027, 0.5);
+
+INSERT INTO Meeting VALUES (10126036, 2.0);
+
+INSERT INTO Meeting VALUES (10126055, 2.5);
+
+INSERT INTO Meeting VALUES (10126058, 2.25);
+
+INSERT INTO Meeting VALUES (10126043, 1.5);
+
+INSERT INTO Meeting VALUES (10126034, 2.5);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10136009, 0.5);
+
+INSERT INTO Meeting VALUES (10136006, 0.5);
+
+INSERT INTO Meeting VALUES (10136012, 1.0);
+
+INSERT INTO Meeting VALUES (10136017, 1.0);
+
+INSERT INTO Meeting VALUES (10136027, 0.5);
+
+INSERT INTO Meeting VALUES (10136036, 0.5);
+
+INSERT INTO Meeting VALUES (10136034, 0.5);
+
+INSERT INTO Meeting VALUES (10136058, 0.5);
+
+INSERT INTO Meeting VALUES (10136055, 0.5);
+
+INSERT INTO Meeting VALUES (10136047, 0.5);
+
+INSERT INTO Meeting VALUES (10146012, 1.3);
+
+INSERT INTO Meeting VALUES (10146034, 1.3);
+
+INSERT INTO Meeting VALUES (10146055, 1.3);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10156003, 0.5);
+
+INSERT INTO Meeting VALUES (10156005, 0.5);
+
+INSERT INTO Meeting VALUES (10166010, 0.25);
+
+INSERT INTO Meeting VALUES (10166022, 0.25);
+
+INSERT INTO Meeting VALUES (10176029, 0.5);
+
+INSERT INTO Meeting VALUES (10176032, 0.5);
+
+INSERT INTO Meeting VALUES (10186043, 0.5);
+
+INSERT INTO Meeting VALUES (10186051, 0.5);
+
+INSERT INTO Meeting VALUES (10196011, 0.5);
+
+INSERT INTO Meeting VALUES (10146032, 0.5);
+
+INSERT INTO Meeting VALUES (10206001, 1.0);
+
+INSERT INTO Meeting VALUES (10206005, 1.0);
+
+INSERT INTO Meeting VALUES (10206034, 1.0);
+
+INSERT INTO Meeting VALUES (10206055, 1.0);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10216007, 1.0);
+
+INSERT INTO Meeting VALUES (10216011, 1.0);
+
+INSERT INTO Meeting VALUES (10216043, 1.0);
+
+INSERT INTO Meeting VALUES (10226043, 1.5);
+
+INSERT INTO Meeting VALUES (10226047, 1.5);
+
+INSERT INTO Meeting VALUES (10226055, 1.5);
+
+INSERT INTO Meeting VALUES (10236022, 1.2);
+
+INSERT INTO Meeting VALUES (10236029, 1.2);
+
+INSERT INTO Meeting VALUES (10236032, 1.2);
+
+INSERT INTO Meeting VALUES (10246010, 0.5);
+
+INSERT INTO Meeting VALUES (10246027, 0.5);
+
+INSERT INTO Meeting VALUES (10246047, 0.5);
+
+INSERT INTO Meeting VALUES (10256051, 0.75);
+
+INSERT INTO Meeting VALUES (10256055, 1.0);
+
+INSERT INTO Meeting VALUES (10256058, 1.0);
+
+INSERT INTO Meeting VALUES (10266043, 2.5);
+
+INSERT INTO Meeting VALUES (10266022, 2.5);
+
+INSERT INTO Meeting VALUES (10266011, 2.5);
+
+INSERT INTO Meeting VALUES (10266005, 2.25);
+
+INSERT INTO Meeting VALUES (10266003, 2.25);
+
+INSERT INTO Meeting VALUES (10276001, 1.0);
+
+INSERT INTO Meeting VALUES (10276008, 1.0);
+
+INSERT INTO Meeting VALUES (10276027, 1.0);
+
+INSERT INTO Meeting VALUES (10286024, 2.0);
+
+INSERT INTO Meeting VALUES (10286036, 2.0);
+
+INSERT INTO Meeting VALUES (10286058, 2.0);
+
+INSERT INTO Meeting VALUES (10296043, 1.0);
+
+INSERT INTO Meeting VALUES (10296011, 1.0);
+
+INSERT INTO Meeting VALUES (10296015, 1.0);
+
+SELECT * FROM Employee;
+
+INSERT INTO Meeting VALUES (10306012, 1.5);
+
+INSERT INTO Meeting VALUES (10306011, 0.5);
+
+INSERT INTO Meeting VALUES (10306029, 0.25);
+
+INSERT INTO Meeting VALUES (10316012, 1.6);
+
+INSERT INTO Meeting VALUES (10316027, 1.2);
+
+INSERT INTO Meeting VALUES (10316032, 1.6);
+
+INSERT INTO Meeting VALUES (10316043, 1.6);
+
+INSERT INTO Meeting VALUES (10316051, 1.6);
+
+SELECT * FROM Meeting;
+
+SELECT sysdate FROM dual;
+
+ALTER TABLE Scans MODIFY TEMPERATURE_IN_F NUMBER(5,2) NOT NULL;
+
+ALTER TABLE Scans MODIFY TEMPERATURE_IN_F NUMBER(5,2);
+
+ALTER TABLE Scans MODIFY TEMPERATURE_IN_F NUMBER(5,2) NOT NULL;
+
+INSERT INTO Scans VALUES (001, 03-JAN-21, '9:00am', 6007, 94.45);
+
+INSERT INTO Scans VALUES (001, '03-JAN-21', '9:00am', 6007, 94.45);
+
+SELECT * FROM Scans;
+
+SELECT * FROM Employee;
+
+INSERT INTO Scans VALUES (002, '03-JAN-21', '9:12am', 6003, 97.35);
+
+INSERT INTO Scans VALUES (003, '04-JAN-21', '9:04am', 6001, 95.74);
+
+INSERT INTO Scans VALUES (004, '06-JAN-21', '9:00am', 6006, 95.03);
+
+INSERT INTO Scans VALUES (005, '10-JAN-21', '9:06am', 6009, 98.29);
+
+INSERT INTO Scans VALUES (006, '13-JAN-21', '9:04am', 6015, 101.33);
+
+INSERT INTO Scans VALUES (007, '17-JAN-21', '9:08am', 6055, 102.12);
+
+INSERT INTO Scans VALUES (008, '23-JAN-21', '9:11am', 6022, 95.67);
+
+INSERT INTO Scans VALUES (009, '29-JAN-21', '9:21am', 6027, 94.87);
+
+INSERT INTO Scans VALUES (010, '04-FEB-21', '9:12am', 6032, 96.36);
+
+INSERT INTO Scans VALUES (011, '09-FEB-21', '9:07am', 6036, 97.63);
+
+INSERT INTO Scans VALUES (012, '16-FEB-21', '9:06am', 6010, 95.84);
+
+INSERT INTO Scans VALUES (013, '18-FEB-21', '9:04am', 6011, 93.21);
+
+INSERT INTO Scans VALUES (014, '22-FEB-21', '9:23am', 6012, 101.91);
+
+INSERT INTO Scans VALUES (015, '25-FEB-21', '9:05am', 6017, 98.01);
+
+INSERT INTO Scans VALUES (016, '07-MAR-21', '9:17am', 6047, 93.95);
+
+INSERT INTO Scans VALUES (017, '12-MAR-21', '9:10am', 6043, 101.66);
+
+INSERT INTO Scans VALUES (018, '13-MAR-21', '9:00am', 6006, 102.02);
+
+INSERT INTO Scans VALUES (019, '14-MAR-21', '9:00am', 6007, 92.56);
+
+INSERT INTO Scans VALUES (020, '22-MAR-21', '9:00am', 6022, 96.66);
+
+INSERT INTO Scans VALUES (021, '22-MAR-21', '9:15am', 6055, 97.34);
+
+INSERT INTO Scans VALUES (022, '26-MAR-21', '9:00am', 6006, 95.38);
+
+SELECT * FROM Scans;
+
+INSERT INTO Tests VALUES (3111, 'company', '13-JAN-21', '10:30am', 6015, 'positive');
+
+SELECT * FROM Tests;
+
+INSERT INTO Tests VALUES (3112, 'company', '14-JAN-21', '10:00am', 6007, 'negative');
+
+INSERT INTO Tests VALUES (3113, 'clinic', '14-JAN-21', '10:15am', 6009, 'positive');
+
+INSERT INTO Tests VALUES (3114, 'hospital', '14-JAN-21', '11:30am', 6032, 'negative');
+
+INSERT INTO Tests VALUES (3115, 'hospital', '14-JAN-21', '11:37am', 6036, 'negative');
+
+INSERT INTO Tests VALUES (3116, 'hospital', '14-JAN-21', '11:42am', 6051, 'negative');
+
+INSERT INTO Tests VALUES (3117, 'clinic', '15-JAN-21', '11:45am', 6058, 'negative');
+
+INSERT INTO Tests VALUES (3118, 'company', '17-JAN-21', '10:30am', 6055, 'negative');
+
+INSERT INTO Tests VALUES (3119, 'hospital', '17-JAN-21', '3:10pm', 6008, 'negative');
+
+INSERT INTO Tests VALUES (3120, 'hospital', '17-JAN-21', '3:14pm', 6001, 'negative');
+
+INSERT INTO Tests VALUES (3121, 'hospital', '17-JAN-21', '3:19pm', 6012, 'negative');
+
+INSERT INTO Tests VALUES (3122, 'company', '17-JAN-21', '1:30pm', 6024, 'negative');
+
+INSERT INTO Tests VALUES (3123, 'company', '17-JAN-21', '1:35pm', 6027, 'negative');
+
+INSERT INTO Tests VALUES (3124, 'company', '17-JAN-21', '1:40pm', 6043, 'negative');
+
+INSERT INTO Tests VALUES (3125, 'clinic', '17-JAN-21', '7:30pm', 6034, 'negative');
+
+INSERT INTO Tests VALUES (3126, 'company', '22-FEB-21', '10:30am', 6012, 'negative');
+
+INSERT INTO Tests VALUES (3127, 'clinic', '23-FEB-21', '8:15am', 6009, 'negative');
+
+INSERT INTO Tests VALUES (3128, 'hospital', '23-FEB-21', '12:35pm', 6006, 'negative');
+
+INSERT INTO Tests VALUES (3129, 'hospital', '23-FEB-21', '12:40pm', 6017, 'negative');
+
+INSERT INTO Tests VALUES (3130, 'clinic', '23-FEB-21', '8:40am', 6027, 'negative');
+
+INSERT INTO Tests VALUES (3131, 'clinic', '23-FEB-21', '8:52am', 6036, 'negative');
+
+INSERT INTO Tests VALUES (3132, 'clinic', '23-FEB-21', '8:56am', 6034, 'negative');
+
+INSERT INTO Tests VALUES (3133, 'hospital', '23-FEB-21', '7:30pm', 6058, 'negative');
+
+INSERT INTO Tests VALUES (3134, 'clinic', '23-FEB-21', '7:57pm', 6055, 'negative');
+
+INSERT INTO Tests VALUES (3135, 'clinic', '23-FEB-21', '8:12pm', 6047, 'negative');
+
+INSERT INTO Tests VALUES (3136, 'clinic', '23-FEB-21', '8:32pm', 6011, 'negative');
+
+INSERT INTO Tests VALUES (3137, 'company', '12-MAR-21', '10:30am', 6043, 'negative');
+
+INSERT INTO Tests VALUES (3138, 'hospital', '12-MAR-21', '5:24pm', 6007, 'negative');
+
+INSERT INTO Tests VALUES (3139, 'hospital', '12-MAR-21', '6:43pm', 6011, 'negative');
+
+UPDATE Scans SET EMP_ID = 6024 WHERE SCAN_ID = 018;
+
+INSERT INTO Tests VALUES (3140, 'company', '13-MAR-21', '10:30m', 6024, 'positive');
+
+INSERT INTO Tests VALUES (3141, 'company', '13-MAR-21', '10:40am', 6036, 'positive');
+
+INSERT INTO Tests VALUES (3142, 'company', '13-MAR-21', '10:50am', 6058, 'positive');
+
+INSERT INTO Tests VALUES (3143, 'clinic', '14-MAR-21', '9:40am', 6022, 'negative');
+
+INSERT INTO Tests VALUES (3144, 'clinic', '14-MAR-21', '9:44am', 6001, 'negative');
+
+INSERT INTO Tests VALUES (3145, 'company', '22-JAN-21', '10:30am', 6003, 'negative');
+
+INSERT INTO Tests VALUES (3146, 'company', '19-FEB-21', '10:30am', 6034, 'negative');
+
+INSERT INTO Tests VALUES (3147, 'company', '05-MAR-21', '10:30am', 6029, 'negative');
+
+INSERT INTO Tests VALUES (3148, 'company', '21-MAR-21', '10:30am', 6007, 'positive');
+
+INSERT INTO Tests VALUES (3149, 'hospital', '22-MAR-21', '9:10am', 6047, 'negative');
+
+INSERT INTO Tests VALUES (3150, 'hospital', '22-MAR-21', '11:36am', 6027, 'negative');
+
+SELECT * FROM Tests;
+
+INSERT INTO Cases VALUES (901, 6015, '20-JAN-21', 'back to work');
+
+INSERT INTO Cases VALUES (902, 6009, '27-JAN-21', 'back to work');
+
+INSERT INTO Cases VALUES (903, 6024, '21-MAR-21', 'left the company');
+
+INSERT INTO Cases VALUES (904, 6036, '22-MAR-21', 'back to work');
+
+INSERT INTO Cases VALUES (905, 6058, '25-MAR-21', 'deceased');
+
+INSERT INTO Cases VALUES (906, 6007, '29-MAR-21', 'back to work');
+
+SELECT * FROM Cases;
+
+INSERT INTO HealthStatus VALUES (01, 6003, '22-JAN-21', 'well');
+
+INSERT INTO HealthStatus VALUES (02, 6034, '19-FEB-21', 'well');
+
+INSERT INTO HealthStatus VALUES (03, 6029, '05-MAR-21', 'well');
+
+INSERT INTO HealthStatus VALUES (04, 6007, '21-MAR-21', 'sick');
+
+SELECT * FROM HealthStatus;
+
+INSERT INTO SymptomType VALUES (1, 'Chills or Fever');
+
+INSERT INTO SymptomType VALUES (2, 'Loss of Taste or Smell');
+
+INSERT INTO SymptomType VALUES (3, 'Headache or Fatigue');
+
+INSERT INTO SymptomType VALUES (4, 'Cough or Runny Nose');
+
+INSERT INTO SymptomType VALUES (5, 'Difficulty Breathing');
+
+SELECT * FROM SymptomType;
+
+INSERT INTO Symptom VALUES (101, 6003, '22-JAN-21', 3);
+
+INSERT INTO Symptom VALUES (102, 6003, '22-JAN-21', 5);
+
+INSERT INTO Symptom VALUES (103, 6034, '19-FEB-21', 3);
+
+INSERT INTO Symptom VALUES (104, 6029, '05-MAR-21', 1);
+
+INSERT INTO Symptom VALUES (105, 6029, '05-MAR-21', 3);
+
+INSERT INTO Symptom VALUES (106, 6007, '21-MAR-21', 1);
+
+INSERT INTO Symptom VALUES (107, 6007, '21-MAR-21', 2);
+
+INSERT INTO Symptom VALUES (108, 6007, '21-MAR-21', 4);
+
+SELECT * FROM Symptom;
+
+INSERT INTO Notification VALUES (501, 6007, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (502, 6009, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (503, 6032, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (504, 6036, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (505, 6051, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (506, 6058, '14-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (507, 6008, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (508, 6001, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (509, 6012, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (510, 6024, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (511, 6027, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (512, 6043, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (513, 6034, '17-JAN-21', 'mandatory');
+
+INSERT INTO Notification VALUES (514, 6009, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (515, 6006, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (516, 6017, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (517, 6027, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (518, 6036, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (519, 6034, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (520, 6058, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (521, 6055, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (522, 6047, '23-FEB-21', 'mandatory');
+
+INSERT INTO Notification VALUES (523, 6007, '12-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (524, 6011, '12-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (525, 6036, '14-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (526, 6058, '14-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (527, 6022, '14-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (528, 6001, '14-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (529, 6047, '22-MAR-21', 'mandatory');
+
+INSERT INTO Notification VALUES (530, 6027, '22-MAR-21', 'mandatory');
+
+SELECT * FROM Notification;
+
+INSERT INTO Notification VALUES (531, 6011, '23-FEB-21', 'optional');
+
+INSERT INTO Notification VALUES (532, 6047, '22-MAR-21', 'optional');
+
+INSERT INTO Notification VALUES (533, 6027, '22-MAR-21', 'optional');
+
+INSERT INTO Notification VALUES (534, 6017, '25-FEB-21', 'optional');
+
+INSERT INTO Notification VALUES (535, 6009, '10-JAN-21', 'optional');
+
+SELECT * FROM Notification;
+
+SELECT * FROM Employee;
+
+SELECT * FROM MeetingDetails;
+
+SELECT * FROM Rooms;
+
+SELECT * FROM Meeting;
+
+SELECT * FROM Notification;
+
+SELECT * FROM SymptomType;
+
+SELECT * FROM Symptom;
+
+SELECT * FROM Scans;
+
+SELECT * FROM Tests;
+
+SELECT * FROM Cases;
+
+SELECT * FROM HealthStatus;
+

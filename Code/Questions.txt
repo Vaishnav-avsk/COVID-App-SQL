@@ -1,0 +1,21 @@
+I created the following tables with the specified attributes in the HW statement:
+1. Employee: Inserted 25 employees with floor number
+2. Meeting: Normalized this table and added 3 tables, MeetingDetails, Rooms and Meeting with MEETING ID + EMPLOYEE ID being the composite primary key in Meeting table
+3. Notification: Added entries to notification table based on the people who got affected/tested positive by COVID. Added mandatory to all those who have been in close contact to positive tested person via meetings and optional to some who could have been close to that person
+4. Symptom: Normalized this table into Symptom table and SymptomType table which has the respective symptom names for the IDs
+5. Scans: Table with random Scans that happen in the company
+6. Tests: Details of employees who have taken tests that might have felt sick or self-reported symptoms
+7. Cases: To track the employees who have tested positive in the above Tests table
+8. HealthStatus: Track of the status of health of positive tested employees
+
+
+Q1. All the relevant queries having the above details are submitted in Q1.sql, also attached pdf files/jpeg files for showing the outputs for every solution.
+
+Q2. Query to return the Symptom ID and name which has been most self-reported. I used the "WHERE 1 =" to output the highest self-reported symptoms from the list of all counts for each self-reported symptoms in descending order.
+    I also submitted a Q2-Alternative answer, wherein I used views to output the same result.
+    
+Q3. I wrote a query which finds the floor with most number of employees who were tested positive and returns that as the sickest floor. Used views here as well :)
+
+Q4. Returned the count for all the given stats during the month of January 2021.
+
+Q5. I wrote a query to select employees who have self-reported all the symptoms. For this I gave a normal query which got executed in LIVE SQL, but the query with Table Division is correct but for some reason I was not able to execute that query in Oracle LIVE SQL. It was throwing an error even though the query is correct. Have a look at the query with table divison once :) Anyways the normal query works perfectly fine in Oracle LIVE SQL.
